@@ -1,11 +1,11 @@
-# Obscured-by-Cloud (OBC)
+# Obscured-by-Clouds (OBC)
 
 
 <img src="obc_banner.png" alt="Project Banner" width="500" />
 
 <br>
 
-**Obscured-by-Cloud (OBC)** is a modular ETL pipeline project designed to handle data transformation securely and transparently, revealing what’s *obscured by the cloud*.  
+**Obscured-by-Clouds (OBC)** is a modular ETL pipeline project designed to handle data transformation securely and transparently, revealing what’s *obscured by the cloud*.  
 This first phase focuses on the **local data pipeline**, establishing clean, reproducible processes before extending to cloud infrastructure.
 
 <br>
