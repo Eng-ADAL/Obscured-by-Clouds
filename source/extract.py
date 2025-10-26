@@ -1,41 +1,61 @@
 # OBS extract.py
 # extracts text files
 
-def extract_txt(lines)
+def extract_txt(filepath = 'data_raw/raw_data.txt'):
     """
     Extracts raw *.txt files
-    Example data:
 
+    Example data:
     Customer Name, Drink, Price, Branch, Payment Type, Card Number, Date/Time
     Dave  “Latte  2  £3.50”  Epsom  Card  0123456  12/08/2024
     """
-    with open(/data_raw/*.txt)
-    row = []
+
+    rows = []
     count_total_rows = 0
     count_malformed_rows = 0
 
-    reader = readline(lines)
-
-        for line in reader:
+    # Open file and fix BOM encoding ("utf-8-sig")
+    with open(filepath, "r", encoding="utf-8-sig") as f:
+        for line in f:
+            line = line.strip()
             # Skip empty lines
             if not line or all(not cell.strip() for cell in line):
                 continue
 
-            if len(line) != 7 :
-            # malformed row skip
+            parts = line.split(" ") #split by coma
+            if len(parts) != 7 :
+                count_malformed_rows += 1
             # further improvement add log for malformed and empty lines
+                continue # malformed row skip
 
             try:
-                count_total_rows += 1
-                customer_name = line[0].strip()
-                drink = line[1].strip()
-                price = line[2].strip()
-                branch = line[3].strip()
-                payment_type = line[4].strip()
-                card_number = line[5].strip()
-                datetime_str = line[6].strip()
-            except Exception as e:
-                count_malformed_rows += 1
-                continue
+                customer_name   = parts[0].strip()
+                drink           = parts[1].strip()
+                price           = parts[2].strip()
+                branch          = parts[3].strip()
+                payment_type    = parts[4].strip()
+                card_number     = parts[5].strip()
+                datetime_str    = parts[6].strip()
 
+            except Exception:
+                count_malformed_rows += 1
+
+            row = {
+                    "Customer Name" : customer_name,
+                    "Drink"         : drink,
+                    "Price"         : price,
+                    "Branch"        : branch,
+                    "Payment Type"  : payment_type,
+                    "Card Number"   : card_number,
+                    "Date/Time"     : datetime_str,
+                  }
+            rows.append(row)
+            count_total_rows += 1
+
+    print(f"Total rows: {count_total_rows}, malformed {count_malformed_rows}")
+    return rows
+
+if __name__ == "__main__":
+    data =  extract_txt()
+    print(data[:5]) # sanity check with first 5 row
 
