@@ -1,5 +1,6 @@
 # OBS transform.py
 # Transform extracted files
+# 🜂
 
 """
 Sample data:
@@ -13,12 +14,18 @@ import uuid
 from datetime import datetime
 
 
-def hash_pii_fields(customer_name, card_number):
+def hash_pii_fields(customer_name):
     """
-    Hashing Customer Name and Card Number
+    Hashing Customer Name
     """
-    return hash(customer_name, card_number)
+    return hash(customer_name)
 
+
+def drop_card(card_number):
+    """
+    Keep the first 4 digits of the card number to identify the bank.
+    """
+    return card_number[:4]
 def to_iso8601(datetime_str):
     """
     Convert string datatime to iso8601 format
