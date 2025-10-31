@@ -1,7 +1,7 @@
 # OBS extract.py
 # extracts text files
 
-def extract_txt(filepath = 'data_raw/raw_data.txt'):
+def extract_txt(filepath):
     """
     Extracts raw *.txt files
 
@@ -54,8 +54,4 @@ def extract_txt(filepath = 'data_raw/raw_data.txt'):
 
     print(f"Total rows: {count_total_rows}, malformed {count_malformed_rows}")
     return rows
-
-if __name__ == "__main__":
-    data =  extract_txt()
-    print(data[:5]) # sanity check with first 5 row
 
