@@ -14,6 +14,9 @@ import uuid
 import hashlib
 from datetime import datetime
 
+def transaction_uuid(transaction_id):
+    return str(uuid.uuid4())
+
 
 def hash_pii_fields(customer_name):
     """

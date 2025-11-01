@@ -13,14 +13,15 @@ def extract_txt(filepath):
     rows = []
     count_total_rows = 0
     count_malformed_rows = 0
-
+    count_empty_rows = 0
     # Open file and fix BOM encoding ("utf-8-sig")
     with open(filepath, "r", encoding="utf-8-sig") as f:
         for line in f:
             line = line.strip()
             # Skip empty lines
             if not line or all(not cell.strip() for cell in line):
-                continue
+                 count_empty_rows += 1
+                 continue
 
             parts = line.split(" ") #split by coma
             if len(parts) != 7 :
@@ -52,6 +53,16 @@ def extract_txt(filepath):
             rows.append(row)
             count_total_rows += 1
 
-    print(f"Total rows: {count_total_rows}, malformed {count_malformed_rows}")
-    return rows
+    summary = {
+            "total_rows" : count_total_rows,
+            "malformed_rows" : count_malformed_rows,
+            "empty_rows" : count_empty_rows,
+            "source_file": filepath,
+#            "extraction_time" : good idea for metadata
+            }
+    return {
+            "data" : rows,
+            "stats" : summary
+            }
+
 
