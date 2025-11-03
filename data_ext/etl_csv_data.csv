@@ -1,0 +1,11 @@
+Customer Name,Drink,Price,Branch,Payment Type,Card Number,Date/Time
+Carol,Macchiato,£4.50,Guildford,Cash,9528512,05/12/2024
+Frank,Latte,£4.50,Epsom,Card,1575577,12/08/2024
+Dave,Macchiato,£3.50,Woking,Card,1575577,15/09/2024
+Bob,Macchiato,£3.00,Epsom,Cash,4766371,05/12/2024
+Carol,Macchiato,£3.50,Woking,Card,1575577,05/12/2024
+Bob,Espresso,£3.50,Woking,Cash,1713895,12/08/2024
+Ivy,Mocha,£3.00,Guildford,Cash,9625482,20/10/2024
+Frank,Espresso,£3.50,Guildford,Card,1575577,01/11/2024
+Hank,Macchiato,£3.50,Redhill,Card,1575577,12/08/2024
+Jack,Americano,£2.50,Woking,Cash,1713895,12/08/2024

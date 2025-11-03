@@ -9,7 +9,7 @@ from rich.panel import Panel
 
 console = Console()
 
-def main():
+def extract_transform_to_terminal():
     filepath = "data_raw/raw_data.txt"
 
     # Extract stage
@@ -66,8 +66,51 @@ def main():
     # Load stage (placeholder)
 
 
+def etl_to_csv():
+    raw_path = "data_raw/raw_data.txt"
+    file_path = "data_ext/etl_csv_data.csv"
+    extract_results = e.extract_txt(raw_path)
+    data_to_save = extract_results["data"]
+    l.load_to_csv(data_to_save, file_path)
+    print(f"ETL complete. Data saved to {file_path}")
+
+def main():
+    while True:
+        # Place holder for cli-gui
+        print("""
+        1. Extract and Transform Print
+        2. ETL to CSV file
+
+        0. Exit
+              """)
+        choice = input("Please select: ")
+
+        if choice == "1":
+            extract_transform_to_terminal()
+            input("\n Press Enter For return main menu")
+            continue
+
+        elif choice == "2":
+            etl_to_csv()
+            input("\n Press Enter For return main menu")
+            continue
+
+        elif choice in ["0", "q"]:
+            exit()
+
+        else:
+            input("Please input [0-x]")
+            continue
+
 if __name__ == "__main__":
-    main()
-
-
+    try:
+        main()
+    except KeyboardInterrupt:
+        print("Keyboard interrupt")
+        exit()
+    try:
+        main()
+    except Exception as e:
+        print(f"Error {e}")
+        exit()
 
