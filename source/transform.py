@@ -15,6 +15,7 @@ import hashlib
 from datetime import datetime
 import re
 from decimal import Decimal
+import time
 
 def transaction_uuid(transaction_id):
     return str(uuid.uuid4())
@@ -52,10 +53,12 @@ def decimal_price(price):
     dec_price = Decimal(p_price)
     return dec_price
 
+
 def transform_all(rows):
     """
     Apply transformations to each extracted row.
     """
+    start_transform = time.pref_counter() # Starts transfrom time
     transformed = []
 
     for r in rows:
@@ -76,5 +79,11 @@ def transform_all(rows):
         }
 
         transformed.append(row)
+    
+    end_transform = time.prefcounter()  # End transform time
+    transfrom_time = end_transform - start_transform #Total Transfrom time
 
-    return transformed
+    return {
+            "transformed" : transformed,
+            "time" : transform_time
+            }
