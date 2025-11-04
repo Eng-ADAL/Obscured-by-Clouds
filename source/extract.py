@@ -63,6 +63,8 @@ def extract_txt(filepath):
     return {
             "data" : rows,
             "stats" : summary
+            # Add  extraction time 
+            # Add cpu I/O
             }
 
 

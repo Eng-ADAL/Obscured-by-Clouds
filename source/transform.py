@@ -9,7 +9,7 @@ Sample data:
 """
 
 
-
+#import pandas #revisit transform_all function
 import uuid
 import hashlib
 from datetime import datetime
