@@ -13,6 +13,8 @@ Sample data:
 import uuid
 import hashlib
 from datetime import datetime
+import re
+from decimal import Decimal
 
 def transaction_uuid(transaction_id):
     return str(uuid.uuid4())
@@ -42,6 +44,14 @@ def to_iso8601(datetime_str):
     dt = datetime.strptime(datetime_str, "%d/%m/%Y")
     return dt.strftime("%Y-%m-%dT%H:%M:%S")
 
+def decimal_price(price):
+    """
+    return remove currency sign (£) and transform it integer
+    """
+    p_price = re.sub(r'[£$€?]', '', price)
+    dec_price = Decimal(p_price)
+    return dec_price
+
 def transform_all(rows):
     """
     Apply transformations to each extracted row.
@@ -53,12 +63,12 @@ def transform_all(rows):
         card_prefix = drop_card(r["Card Number"])
         iso_date = to_iso8601(r["Date/Time"])
         transaction_id = str(uuid.uuid4())
-
+        price = decimal_price(r["Price"])
         row = {
             "Transaction ID": transaction_id,
             "Customer Hash": customer_hash,
             "Drink": r["Drink"],
-            "Price": r["Price"],
+            "Price": price,
             "Branch": r["Branch"],
             "Payment Type": r["Payment Type"],
             "Bank Prefix": card_prefix,
