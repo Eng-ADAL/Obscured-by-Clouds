@@ -3,6 +3,7 @@
 import extract as e
 import transform as t
 import load as l
+import utils as u
 
 from rich.console import Console
 from rich.panel import Panel
@@ -14,7 +15,6 @@ def extract_transform_to_terminal():
 
     # Extract stage
     extract_results = e.extract_txt(filepath)
-
     extracted_data = extract_results["data"]
     stats = extract_results["stats"]
 
@@ -38,8 +38,8 @@ def extract_transform_to_terminal():
     print("\n\n")
 
     # Transform stage
-    transformed_data = t.transform_all(extracted_data)
-
+    transfrom_results = t.transform_all(extracted_data)
+    transformed_data = transfrom_results["transformed"]
     # Header
     header = f"{'No.':<4}{'Drink':<11}{'Price':<7}{'Branch':<10}{'Payment':<9}{'Bank':<5}{'Date/Time':<10}{'TxID':<6}{'CustHash'}"
     lines = [header, "." * (len(header)+2)]
@@ -63,10 +63,11 @@ def extract_transform_to_terminal():
 
     transform_table = "\n".join(lines)
     console.print(Panel(transform_table, title="Transform Sample", border_style="cyan"))
-    # Load stage (placeholder)
-
 
 def etl_to_csv():
+    """
+    Extract Transform and Load to CSV file
+    """
     raw_path = "data_raw/raw_data.txt"
     file_path = "data_ext/etl_csv_data.csv"
     extract_results = e.extract_txt(raw_path)
@@ -77,6 +78,7 @@ def etl_to_csv():
 def main():
     while True:
         # Place holder for cli-gui
+        u.clr_s()
         print("""
         1. Extract and Transform Print
         2. ETL to CSV file
@@ -86,20 +88,26 @@ def main():
         choice = input("Please select: ")
 
         if choice == "1":
+            u.clr_s()
             extract_transform_to_terminal()
             input("\n Press Enter For return main menu")
             continue
 
         elif choice == "2":
+            u.clr_s()
             etl_to_csv()
             input("\n Press Enter For return main menu")
             continue
 
         elif choice in ["0", "q"]:
+            u.clr_s()
+            print("\n\n\n\nThank you for using L&S products!\n\n\n\n")
             exit()
 
         else:
-            input("Please input [0-x]")
+            u.clr_s()
+            print("Please input [0-3]")
+            u.wait(3)
             continue
 
 if __name__ == "__main__":
@@ -113,4 +121,3 @@ if __name__ == "__main__":
     except Exception as e:
         print(f"Error {e}")
         exit()
-

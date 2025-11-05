@@ -17,6 +17,7 @@ import re
 from decimal import Decimal
 import time
 
+
 def transaction_uuid(transaction_id):
     return str(uuid.uuid4())
 
@@ -47,7 +48,7 @@ def to_iso8601(datetime_str):
 
 def decimal_price(price):
     """
-    return remove currency sign (£) and transform it integer
+    remove currency sign (£) and transform it integer
     """
     p_price = re.sub(r'[£$€?]', '', price)
     dec_price = Decimal(p_price)
@@ -58,7 +59,7 @@ def transform_all(rows):
     """
     Apply transformations to each extracted row.
     """
-    start_transform = time.pref_counter() # Starts transfrom time
+    start_transform = time.perf_counter() # Starts transfrom time
     transformed = []
 
     for r in rows:
@@ -79,11 +80,13 @@ def transform_all(rows):
         }
 
         transformed.append(row)
-    
-    end_transform = time.prefcounter()  # End transform time
-    transfrom_time = end_transform - start_transform #Total Transfrom time
+
+    end_transform = time.perf_counter()  # End transform time
+    transform_time = end_transform - start_transform #Total Transfrom time
+    transform_end_time = datetime.utcnow()
 
     return {
             "transformed" : transformed,
-            "time" : transform_time
+            "time" : transform_time,
+            "end_datetime" : transform_end_time
             }
