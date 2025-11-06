@@ -73,7 +73,8 @@ def el_to_csv():
     extract_results = e.extract_txt(raw_path)
     data_to_save = extract_results["data"]
     l.load_to_csv(data_to_save, file_path)
-    print(f"ETL complete. Data saved to {file_path}")
+    print(f"EL complete. Data saved to {file_path}")
+
 
 def etl_to_csv():
     """
@@ -82,9 +83,11 @@ def etl_to_csv():
     raw_path = "data_raw/raw_data.txt"
     file_path = "data_ext/etl_csv_data.csv"
     extract_results = e.extract_txt(raw_path)
-    data_to_save = extract_results["data"]
+    transform_results = t.transform_all(extract_results["data"])
+    data_to_save = transform_results["data"]
     l.load_to_csv(data_to_save, file_path)
     print(f"ETL complete. Data saved to {file_path}")
+
 
 def main():
     while True:
@@ -93,6 +96,7 @@ def main():
         print("""
         1. Extract and Transform Print
         2. Extract and Load to CSV file (without Transform)
+        3. Extract Transform and Load to CSV file
 
         0. Exit
               """)
@@ -109,6 +113,13 @@ def main():
             el_to_csv()
             input("\n Press Enter For return main menu")
             continue
+
+        elif choice == "3":
+            u.clr_s()
+            etl_to_csv()
+            input("\n Press Enter For return main menu")
+            continue
+
 
         elif choice in ["0", "q"]:
             u.clr_s()

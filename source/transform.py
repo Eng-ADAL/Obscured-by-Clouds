@@ -88,10 +88,9 @@ def transform_all(rows):
     summary = {
             "t_total_time" : transform_time,
             "t_datetime" : transform_end_time
-
              }
 
     return {
-            "transformed" : transformed,
+            "data" : transformed,
             "stats" : summary
             }
