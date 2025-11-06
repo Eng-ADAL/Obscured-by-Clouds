@@ -1,6 +1,9 @@
 # OBS extract.py
 # extracts text files
 
+import time
+from datetime import datetime
+
 def extract_txt(filepath):
     """
     Extracts raw *.txt files
@@ -16,6 +19,7 @@ def extract_txt(filepath):
     count_empty_rows = 0
     # Open file and fix BOM encoding ("utf-8-sig")
     with open(filepath, "r", encoding="utf-8-sig") as f:
+        start_extract = time.perf_counter() # Strarts extract starts counter
         for line in f:
             line = line.strip()
             # Skip empty lines
@@ -23,7 +27,7 @@ def extract_txt(filepath):
                  count_empty_rows += 1
                  continue
 
-            parts = line.split(" ") #split by coma
+            parts = line.split(" ")
             if len(parts) != 7 :
                 count_malformed_rows += 1
             # further improvement add log for malformed and empty lines
@@ -53,18 +57,22 @@ def extract_txt(filepath):
             rows.append(row)
             count_total_rows += 1
 
+    end_extract = time.perf_counter() # End extract starts counter
+    extract_total_time = end_extract - start_extract
+    extract_end_time = datetime.utcnow()
+
     summary = {
             "total_rows" : count_total_rows,
             "malformed_rows" : count_malformed_rows,
             "empty_rows" : count_empty_rows,
             "source_file": filepath,
-#            "extraction_time" : good idea for metadata
+            "e_total_time" : extract_total_time,
+            "e_datetime" : extract_end_time
             }
+
     return {
             "data" : rows,
             "stats" : summary
-            # Add  extraction time 
-            # Add cpu I/O
             }
 
 

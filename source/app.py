@@ -64,6 +64,17 @@ def extract_transform_to_terminal():
     transform_table = "\n".join(lines)
     console.print(Panel(transform_table, title="Transform Sample", border_style="cyan"))
 
+def el_to_csv():
+    """
+    Extract Load to CSV file
+    """
+    raw_path = "data_raw/raw_data.txt"
+    file_path = "data_ext/el_csv_data.csv"
+    extract_results = e.extract_txt(raw_path)
+    data_to_save = extract_results["data"]
+    l.load_to_csv(data_to_save, file_path)
+    print(f"ETL complete. Data saved to {file_path}")
+
 def etl_to_csv():
     """
     Extract Transform and Load to CSV file
@@ -81,7 +92,7 @@ def main():
         u.clr_s()
         print("""
         1. Extract and Transform Print
-        2. ETL to CSV file
+        2. Extract and Load to CSV file (without Transform)
 
         0. Exit
               """)
@@ -95,7 +106,7 @@ def main():
 
         elif choice == "2":
             u.clr_s()
-            etl_to_csv()
+            el_to_csv()
             input("\n Press Enter For return main menu")
             continue
 

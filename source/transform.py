@@ -59,7 +59,7 @@ def transform_all(rows):
     """
     Apply transformations to each extracted row.
     """
-    start_transform = time.perf_counter() # Starts transfrom time
+    start_transform = time.perf_counter() # Starts transfrom time counter
     transformed = []
 
     for r in rows:
@@ -81,12 +81,17 @@ def transform_all(rows):
 
         transformed.append(row)
 
-    end_transform = time.perf_counter()  # End transform time
-    transform_time = end_transform - start_transform #Total Transfrom time
+    end_transform = time.perf_counter()                 # End transform time
+    transform_time = end_transform - start_transform    # Total Transfrom time
     transform_end_time = datetime.utcnow()
+
+    summary = {
+            "t_total_time" : transform_time,
+            "t_datetime" : transform_end_time
+
+             }
 
     return {
             "transformed" : transformed,
-            "time" : transform_time,
-            "end_datetime" : transform_end_time
+            "stats" : summary
             }

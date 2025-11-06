@@ -1,9 +1,12 @@
 import csv
+import time
+from datetime import datetime
 
 def load_to_csv(data_to_save,file_path):
     """
-    Saves extract and transformed data to csv file
+    Load data to csv file
     """
+    start_load = time.perf_counter()
     if not data_to_save:
         raise ValueError("No data to save as CSV file")
 
@@ -16,4 +19,17 @@ def load_to_csv(data_to_save,file_path):
         writer = csv.DictWriter(file, fieldnames = header)
         writer.writeheader()
         data = writer.writerows(data_to_save)
-        return data
+
+    end_load = time.perf_counter()
+    load_total_time = end_load - start_load
+    load_end_time = datetime.utcnow()
+
+    summary = {
+            "l_total_time" : load_total_time,
+            "l_datetime" : load_end_time
+            }
+
+    return {
+            "data": data,
+            "stats" : summary
+            }
