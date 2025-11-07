@@ -89,6 +89,11 @@ ipython_config.py
 
 obc_venv/
 
+
+# data files
+etl_csv_data.csv
+el_csv_data.csv
+
 # pipenv
 #   According to pypa/pipenv#598, it is recommended to include Pipfile.lock in version control.
 #   However, in case of collaboration, if having platform-specific dependencies or dependencies

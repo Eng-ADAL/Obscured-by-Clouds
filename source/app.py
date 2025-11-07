@@ -4,6 +4,7 @@ import extract as e
 import transform as t
 import load as l
 import utils as u
+import ui
 
 from rich.console import Console
 from rich.panel import Panel
@@ -29,17 +30,28 @@ def extract_transform_to_terminal():
         )
     )
 
-    print("\n\nExtracted sample (first 3 lines for sanity check):\n")
-    print("-" * 72)
-    for eline in enumerate(extracted_data[:3]):
-        print(eline)
+    elines = []
+    for i, eline in enumerate(extracted_data[:3], start = 1):
+        formatted = f"{i}.{eline}"
+        elines.append(formatted)
 
-    print("-" * 72)
     print("\n\n")
+    extract_table = "\n".join(elines)
+
+    info = ("\n\n          (Only first 3 lines for sanity check | PII dropped):")
+
+    console.print(
+            Panel(
+        f"{extract_table}{info}",
+        title="Extract Sample",
+        border_style="yellow"
+        )
+        )
 
     # Transform stage
     transfrom_results = t.transform_all(extracted_data)
-    transformed_data = transfrom_results["transformed"]
+    transformed_data = transfrom_results["data"]
+
     # Header
     header = f"{'No.':<4}{'Drink':<11}{'Price':<7}{'Branch':<10}{'Payment':<9}{'Bank':<5}{'Date/Time':<10}{'TxID':<6}{'CustHash'}"
     lines = [header, "." * (len(header)+2)]
@@ -62,7 +74,7 @@ def extract_transform_to_terminal():
         lines.append(line)
 
     transform_table = "\n".join(lines)
-    console.print(Panel(transform_table, title="Transform Sample", border_style="cyan"))
+    console.print(Panel(transform_table, title="Transformed Data", border_style="cyan"))
 
 def el_to_csv():
     """
@@ -88,46 +100,56 @@ def etl_to_csv():
     l.load_to_csv(data_to_save, file_path)
     print(f"ETL complete. Data saved to {file_path}")
 
+u.clr_s()
+ui.banner()
+input("press enter for start app")
 
 def main():
     while True:
         # Place holder for cli-gui
         u.clr_s()
+        ui.header()
+        print(u.banner)
         print("""
-        1. Extract and Transform Print
-        2. Extract and Load to CSV file (without Transform)
-        3. Extract Transform and Load to CSV file
+      1. Extract and Transform Print
+      2. Extract and Load to CSV file (without Transform)
+      3. Extract Transform and Load to CSV file
 
-        0. Exit
+                                               Exit [q or 0]
               """)
         choice = input("Please select: ")
 
         if choice == "1":
             u.clr_s()
+            ui.header()
             extract_transform_to_terminal()
             input("\n Press Enter For return main menu")
             continue
 
         elif choice == "2":
             u.clr_s()
+            ui.header()
             el_to_csv()
             input("\n Press Enter For return main menu")
             continue
 
         elif choice == "3":
             u.clr_s()
+            ui.header()
             etl_to_csv()
             input("\n Press Enter For return main menu")
             continue
 
-
         elif choice in ["0", "q"]:
             u.clr_s()
+            ui.header()
+            ui.banner()
             print("\n\n\n\nThank you for using L&S products!\n\n\n\n")
             exit()
 
         else:
             u.clr_s()
+            ui.header()
             print("Please input [0-3]")
             u.wait(3)
             continue
