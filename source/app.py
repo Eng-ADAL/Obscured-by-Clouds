@@ -1,5 +1,7 @@
 # Main app local entry point for OBC
 
+import sys
+import os
 import extract as e
 import transform as t
 import load as l
@@ -52,7 +54,7 @@ def extract_transform_to_terminal():
     transfrom_results = t.transform_all(extracted_data)
     transformed_data = transfrom_results["data"]
 
-    # Header
+    # Field Names (CSV Headers)
     header = f"{'No.':<4}{'Drink':<11}{'Price':<7}{'Branch':<10}{'Payment':<9}{'Bank':<5}{'Date/Time':<10}{'TxID':<6}{'CustHash'}"
     lines = [header, "." * (len(header)+2)]
     for i, row in enumerate(transformed_data, start=1):
@@ -100,17 +102,23 @@ def etl_to_csv():
     l.load_to_csv(data_to_save, file_path)
     print(f"ETL complete. Data saved to {file_path}")
 
-u.clr_s()
-ui.banner()
-input("press enter for start app")
 
 def main():
+    u.clr_s()
+#    add sys if else if not unix print
+    if sys.platform.startswith("win"):
+        ui.if_win_banner()
+    else:
+        ui.unix_banner_loop2()
+
     while True:
         # Place holder for cli-gui
         u.clr_s()
         ui.header()
-        print(u.banner)
-        print("""
+        ui.main_m()
+        ui.exit_app()
+        #print
+        ("""
       1. Extract and Transform Print
       2. Extract and Load to CSV file (without Transform)
       3. Extract Transform and Load to CSV file
@@ -142,10 +150,18 @@ def main():
 
         elif choice in ["0", "q"]:
             u.clr_s()
-            ui.header()
             ui.banner()
-            print("\n\n\n\nThank you for using L&S products!\n\n\n\n")
+#            print("\n\n\n\nThank you for using L&S products!\n\n\n\n")
             exit()
+
+        # Documentation page in main menu
+        elif choice in ["d", "D"]:
+            u.clr_s()
+            if sys.platform.startswith("win"):
+                print("Please input [0-3]")
+            else:
+                os.system("less documentation.txt")
+
 
         else:
             u.clr_s()
@@ -158,7 +174,9 @@ if __name__ == "__main__":
     try:
         main()
     except KeyboardInterrupt:
-        print("Keyboard interrupt")
+        u.clr_s()
+        ui.banner()
+        print("\n\n\nKeyboard interrupt\n\nThank you for using L&S products\n")
         exit()
     try:
         main()

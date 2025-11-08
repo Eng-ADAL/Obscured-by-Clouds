@@ -4,7 +4,7 @@ import os
 import datetime
 import time
 from rich.console import Console
-from rich.panel import Panel
+from rich.panel   import Panel
 
 def clr_s():
     os.system('cls' if os.name == 'nt' else 'clear')
