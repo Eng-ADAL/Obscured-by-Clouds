@@ -2,6 +2,8 @@ import csv
 import time
 from datetime import datetime
 
+
+# load to local csv file
 def load_to_csv(data_to_save,file_path):
     """
     Load data to csv file
@@ -33,3 +35,15 @@ def load_to_csv(data_to_save,file_path):
             "data": data,
             "stats" : summary
             }
+
+# load to local database
+def to_local_database(data):
+    """
+    This function load provided data to local database
+    """
+
+
+
+
+
+

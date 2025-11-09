@@ -13,7 +13,7 @@ from rich.panel import Panel
 
 console = Console()
 
-def extract_transform_to_terminal():
+def extract_transform_to_terminal(limit=None):
     filepath = "data_raw/raw_data.txt"
 
     # Extract stage
@@ -53,6 +53,9 @@ def extract_transform_to_terminal():
     # Transform stage
     transfrom_results = t.transform_all(extracted_data)
     transformed_data = transfrom_results["data"]
+
+    if limit is not None:
+        transformed_data = transformed_data[:limit]
 
     # Field Names (CSV Headers)
     header = f"{'No.':<4}{'Drink':<11}{'Price':<7}{'Branch':<10}{'Payment':<9}{'Bank':<5}{'Date/Time':<10}{'TxID':<6}{'CustHash'}"
@@ -129,6 +132,18 @@ def main():
             extract_transform_to_terminal()
             input("\n Press Enter For return main menu")
             continue
+
+        if choice == "10":
+            u.clr_s()
+            ui.header()
+            ui.main_10()
+            u.wait(2)
+            u.clr_s()
+            ui.header()
+            extract_transform_to_terminal(10)
+            input("\n Press Enter For return main menu")
+            continue
+
 
         elif choice == "2":
             u.clr_s()

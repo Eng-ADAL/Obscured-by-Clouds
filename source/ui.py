@@ -89,6 +89,17 @@ main_menu_s1 = """
 ╰───┴─────────────────────────────────────────────
 """
 
+main_menu_s10 = """
+╭───┬──────────────────
+│ 1   ████# FIRST 10 ROWS #█████
+├───┼─────────────────────────────
+│ 2   Extract and Load to CSV file
+├───┼────────────────────────────────────
+│ 3   Extract Transform and Load to CSV file
+╰───┴─────────────────────────────────────────────
+"""
+
+
 main_menu_s2 = """
 ╭───┬──────────────────
 │ 1   Extract and Transform Print
@@ -157,6 +168,12 @@ def main_1(center_vertically: bool = False, heigh:int | None = None) -> None:
     align_v = "middle" if center_vertically else "top"
     aligned = Align.center(main_menu_s1, vertical=align_v)
     console.print(aligned, style="bold green")
+
+# Print main selected 10
+def main_10(center_vertically: bool = False, heigh:int | None = None) -> None:
+    align_v = "middle" if center_vertically else "top"
+    aligned = Align.center(main_menu_s10, vertical=align_v)
+    console.print(aligned, style="bold cyan")
 
 # Print main selected 2
 def main_2(center_vertically: bool = False, heigh:int | None = None) -> None:
