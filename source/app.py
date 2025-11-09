@@ -109,7 +109,7 @@ def main():
     if sys.platform.startswith("win"):
         ui.if_win_banner()
     else:
-        ui.unix_banner_loop2()
+         ui.unix_banner_loop2()
 
     while True:
         # Place holder for cli-gui
@@ -117,17 +117,13 @@ def main():
         ui.header()
         ui.main_m()
         ui.exit_app()
-        #print
-        ("""
-      1. Extract and Transform Print
-      2. Extract and Load to CSV file (without Transform)
-      3. Extract Transform and Load to CSV file
-
-                                               Exit [q or 0]
-              """)
         choice = input("Please select: ")
 
         if choice == "1":
+            u.clr_s()
+            ui.header()
+            ui.main_1()
+            u.wait(2)
             u.clr_s()
             ui.header()
             extract_transform_to_terminal()
@@ -137,11 +133,19 @@ def main():
         elif choice == "2":
             u.clr_s()
             ui.header()
+            ui.main_2()
+            u.wait(2)
+            u.clr_s()
+            ui.header()
             el_to_csv()
             input("\n Press Enter For return main menu")
             continue
 
         elif choice == "3":
+            u.clr_s()
+            ui.header()
+            ui.main_3()
+            u.wait(2)
             u.clr_s()
             ui.header()
             etl_to_csv()
@@ -158,6 +162,7 @@ def main():
         elif choice in ["d", "D"]:
             u.clr_s()
             if sys.platform.startswith("win"):
+                ui.warning()
                 print("Please input [0-3]")
             else:
                 os.system("less documentation.txt")
@@ -166,6 +171,7 @@ def main():
         else:
             u.clr_s()
             ui.header()
+            ui.warning()
             print("Please input [0-3]")
             u.wait(3)
             continue
