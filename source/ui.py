@@ -76,6 +76,8 @@ main_menu = """
 │ 2   Extract and Load to CSV file
 ├───┼────────────────────────────────────
 │ 3   Extract Transform and Load to CSV file
+├───┼────────────────────────────────────────
+│ 4   Extract Transform and Load to Data Base
 ╰───┴─────────────────────────────────────────────
 """
 
@@ -86,16 +88,20 @@ main_menu_s1 = """
 │ 2   Extract and Load to CSV file
 ├───┼────────────────────────────────────
 │ 3   Extract Transform and Load to CSV file
+├───┼────────────────────────────────────────
+│ 4   Extract Transform and Load to Data Base
 ╰───┴─────────────────────────────────────────────
 """
 
 main_menu_s10 = """
 ╭───┬──────────────────
-│ 1   ████# FIRST 10 ROWS #█████
+│ 1   █▓▓▒░░FIRST░░10░░ROWS░▒▓▓██
 ├───┼─────────────────────────────
 │ 2   Extract and Load to CSV file
 ├───┼────────────────────────────────────
 │ 3   Extract Transform and Load to CSV file
+├───┼────────────────────────────────────────
+│ 4   Extract Transform and Load to Data Base
 ╰───┴─────────────────────────────────────────────
 """
 
@@ -107,6 +113,8 @@ main_menu_s2 = """
 │ 2   ████████████████████████████
 ├───┼────────────────────────────────────
 │ 3   Extract Transform and Load to CSV file
+├───┼────────────────────────────────────────
+│ 4   Extract Transform and Load to Data Base
 ╰───┴─────────────────────────────────────────────
 """
 
@@ -117,6 +125,20 @@ main_menu_s3 = """
 │ 2   Extract and Load to CSV file
 ├───┼────────────────────────────────────
 │ 3   ██████████████████████████████████████
+├───┼────────────────────────────────────────
+│ 4   Extract Transform and Load to Data Base
+╰───┴─────────────────────────────────────────────
+"""
+
+main_menu_s4 = """
+╭───┬──────────────────
+│ 1   Extract and Transform Print
+├───┼─────────────────────────────
+│ 2   Extract and Load to CSV file
+├───┼────────────────────────────────────
+│ 3   Extract Transform and Load to CSV file
+├───┼────────────────────────────────────────
+│ 4   ███████████████████████████████████████
 ╰───┴─────────────────────────────────────────────
 """
 
@@ -147,7 +169,6 @@ return_main = """
 ╭──────────────────────────────────╮
 │ Press Enter For return main menu │
 ╰──────────────────────────────────╯
-"
 """
 
 exit_q = """
@@ -173,8 +194,6 @@ def r_main(center_vertically: bool = False, heigh:int | None = None) -> None:
     align_v = "middle" if center_vertically else "top"
     aligned = Align.center(return_main, vertical=align_v)
     console.print(aligned, style="bold green")
-
-
 
 
 # Print main menu
@@ -207,6 +226,12 @@ def main_3(center_vertically: bool = False, heigh:int | None = None) -> None:
     aligned = Align.center(main_menu_s3, vertical=align_v)
     console.print(aligned, style="bold green")
 
+# Print main selected 4
+def main_3(center_vertically: bool = False, heigh:int | None = None) -> None:
+    align_v = "middle" if center_vertically else "top"
+    aligned = Align.center(main_menu_s4, vertical=align_v)
+    console.print(aligned, style="bold green")
+
 
 # Print header aligned center
 def header(center_vertically: bool = False, height:int | None = None) -> None:
@@ -230,7 +255,6 @@ def banner_y():
     console.clear()
     console.print(Align.center(banner_p, vertical="middle"), style="yellow")
     console.print("\nPress any key to start or 'D' for Documentation", justify="center")
-
 
 # Banner colour loop cyan and yellow
 def unix_banner_loop():

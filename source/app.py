@@ -42,7 +42,11 @@ def extract_transform_to_terminal(limit=None):
 
     elines = []
     for i, eline in enumerate(extracted_data[:3], start = 1):
-        formatted = f"{i}.{eline}"
+        # Only include non-PII fields
+        safe_line = {
+            k: v for k, v in eline.items() if k not in ["Customer Name", "Card Number"]
+        }
+        formatted = f"{i}.{safe_line}"
         elines.append(formatted)
 
     print("\n\n")
@@ -57,10 +61,6 @@ def extract_transform_to_terminal(limit=None):
         border_style="yellow"
         )
         )
-
-    # Transform stage
-    transfrom_results = t.transform_all(extracted_data)
-    transformed_data = transfrom_results["data"]
 
     if limit is not None:
         transformed_data = transformed_data[:limit]
@@ -130,6 +130,7 @@ def main():
         ui.exit_app()
         choice = input("Please select: ")
 
+        # Extract Transform Print to Terminal 
         if choice == "1":
             u.clr_s()
             ui.header()
@@ -142,6 +143,7 @@ def main():
             input()
             continue
 
+        # Extract Transform Print to Terminal (only first 10 row)
         if choice == "10":
             u.clr_s()
             ui.header()
@@ -154,7 +156,7 @@ def main():
             input()
             continue
 
-
+        # Extract Transform Load CSV
         elif choice == "2":
             u.clr_s()
             ui.header()
@@ -168,6 +170,7 @@ def main():
             input()
             continue
 
+        # Extract Transform Load CSV
         elif choice == "3":
             u.clr_s()
             ui.header()
@@ -180,6 +183,26 @@ def main():
             ui.r_main() # Press Enter For return main menu"
             input()
             continue
+
+        # Extract Transform Load to Data Base
+        elif choice == "4":
+            """
+            Place holder for load database
+            """
+            u.clr_s()
+            ui.header()
+            ui.main_3()
+            u.wait(2)
+            u.clr_s()
+            ui.header()
+            # Add Load function
+            extract_transform_to_terminal(3)
+ 
+            ui.r_main() # Press Enter For return main menu"
+            input()
+            continue
+
+
 
         elif choice in ["0", "q"]:
             u.clr_s()
