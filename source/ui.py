@@ -136,8 +136,19 @@ warning_symb = """
 ⢼⡇⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⠀⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠆⢸⡇⠀
 ⠘⣷⣄⠙⠛⠻⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠟⠛⠋⣠⡿⠃⠀
 ⠀⠈⠉⠛⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠛⠉⠀⠀
+
+  ╭─────────────────────╮
+  │ !! Invalid Input !! │
+  ╰─────────────────────╯
 """
 
+
+return_main = """
+╭──────────────────────────────────╮
+│ Press Enter For return main menu │
+╰──────────────────────────────────╯
+"
+"""
 
 exit_q = """
 ╭──────────────╮
@@ -156,6 +167,15 @@ def warning(center_vertically: bool = False, heigh:int | None = None) -> None:
     align_v = "middle" if center_vertically else "top"
     aligned = Align.center(warning_symb, vertical=align_v)
     console.print(aligned, style="bold red")
+
+# return main menu
+def r_main(center_vertically: bool = False, heigh:int | None = None) -> None:
+    align_v = "middle" if center_vertically else "top"
+    aligned = Align.center(return_main, vertical=align_v)
+    console.print(aligned, style="bold green")
+
+
+
 
 # Print main menu
 def main_m(center_vertically: bool = False, heigh:int | None = None) -> None:

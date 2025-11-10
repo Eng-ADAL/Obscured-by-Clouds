@@ -18,7 +18,7 @@ from decimal import Decimal
 import time
 
 
-def transaction_uuid(transaction_id):
+def transaction_uuid():
     return str(uuid.uuid4())
 
 
@@ -43,17 +43,32 @@ def to_iso8601(datetime_str):
     Example:
     05/12/2024 ➜ 2024-12-05T00:00:00
     """
-    dt = datetime.strptime(datetime_str, "%d/%m/%Y")
+    try:
+        dt = datetime.strptime(datetime_str, "%d/%m/%Y")
+    except ValueError as e:
+        #log
+        dt = datetime(1970,1,1)
     return dt.strftime("%Y-%m-%dT%H:%M:%S")
 
 def decimal_price(price):
     """
     remove currency sign (£) and transform it integer
     """
-    p_price = re.sub(r'[£$€?]', '', price)
-    dec_price = Decimal(p_price)
+    try:
+        p_price = re.sub(r'[£$€?]', '', price)
+        dec_price = Decimal(p_price)
+        if dec_price < 0:
+            raise ValueError
+    except Exception as e:
+        #log
+        return None
     return dec_price
 
+def drink_plain(drink):
+    """
+    make drinks lowercase and replace spaces with underscore _
+    """
+    return drink.strip().lower().replace(" ","_") if drink else None
 
 def transform_all(rows):
     """
@@ -66,12 +81,11 @@ def transform_all(rows):
         customer_hash = hash_pii_fields(r["Customer Name"])
         card_prefix = drop_card(r["Card Number"])
         iso_date = to_iso8601(r["Date/Time"])
-        transaction_id = str(uuid.uuid4())
         price = decimal_price(r["Price"])
         row = {
-            "Transaction ID": transaction_id,
+            "Transaction ID": transaction_uuid(),
             "Customer Hash": customer_hash,
-            "Drink": r["Drink"],
+            "Drink": drink_plain(r["Drink"]),
             "Price": price,
             "Branch": r["Branch"],
             "Payment Type": r["Payment Type"],

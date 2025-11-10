@@ -19,15 +19,23 @@ def extract_transform_to_terminal(limit=None):
     # Extract stage
     extract_results = e.extract_txt(filepath)
     extracted_data = extract_results["data"]
-    stats = extract_results["stats"]
+    e_stats = extract_results["stats"]
+
+    # Transform stage
+    transform_results = t.transform_all(extracted_data)
+    transformed_data = transform_results["data"]
+    t_stats = transform_results["stats"]
 
     console.print(
         Panel(
             f"ETL Pipeline: Running...\n\n"
-            f"Source: [bold]{stats['source_file']}[/bold]\n"
-            f"Total rows: [green]{stats['total_rows']}[/green]\n"
-            f"Malformed: [red]{stats['malformed_rows']}[/red]",
-            title="Status",
+            f"Source          : [bold]{e_stats['source_file']}[/bold]\n"
+            f"Total rows      : [green]{e_stats['total_rows']}[/green]\n"
+            f"Malformed rows  : [red]{e_stats['malformed_rows']}[/red]\n"
+            f"Extraction Time : [yellow]{e_stats['e_total_time']}[/yellow]\n"
+            f"Transform Time  : [green]{t_stats['t_total_time']}[/green]\n"
+            f"Transform End   : [cyan]{t_stats['t_datetime']}[/cyan]",
+            title="ETL Stats",
             border_style="bright_magenta",
         )
     )
@@ -130,7 +138,8 @@ def main():
             u.clr_s()
             ui.header()
             extract_transform_to_terminal()
-            input("\n Press Enter For return main menu")
+            ui.r_main() # Press Enter For return main menu"
+            input()
             continue
 
         if choice == "10":
@@ -141,7 +150,8 @@ def main():
             u.clr_s()
             ui.header()
             extract_transform_to_terminal(10)
-            input("\n Press Enter For return main menu")
+            ui.r_main() # Press Enter For return main menu"
+            input()
             continue
 
 
@@ -152,8 +162,10 @@ def main():
             u.wait(2)
             u.clr_s()
             ui.header()
+            extract_transform_to_terminal(3)
             el_to_csv()
-            input("\n Press Enter For return main menu")
+            ui.r_main() # Press Enter For return main menu"
+            input()
             continue
 
         elif choice == "3":
@@ -163,8 +175,10 @@ def main():
             u.wait(2)
             u.clr_s()
             ui.header()
+            extract_transform_to_terminal(3)
             etl_to_csv()
-            input("\n Press Enter For return main menu")
+            ui.r_main() # Press Enter For return main menu"
+            input()
             continue
 
         elif choice in ["0", "q"]:
@@ -177,17 +191,16 @@ def main():
         elif choice in ["d", "D"]:
             u.clr_s()
             if sys.platform.startswith("win"):
+                ui.header()
                 ui.warning()
-                print("Please input [0-3]")
+                u.wait(3)
             else:
                 os.system("less documentation.txt")
-
 
         else:
             u.clr_s()
             ui.header()
             ui.warning()
-            print("Please input [0-3]")
             u.wait(3)
             continue
 

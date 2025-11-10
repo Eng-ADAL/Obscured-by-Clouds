@@ -41,9 +41,3 @@ def to_local_database(data):
     """
     This function load provided data to local database
     """
-
-
-
-
-
-
