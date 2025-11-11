@@ -78,7 +78,11 @@ main_menu = """
 │ 3   Extract Transform and Load to CSV file
 ├───┼────────────────────────────────────────
 │ 4   Extract Transform and Load to Data Base
-╰───┴─────────────────────────────────────────────
+├───┼──────────────────────────────────────────
+│ 5   Upload raw CSV file to Cloud (AWS) s3 Bucket
+├───┼─────────────────────────────────────────────
+│ 6   Upload PII fields hashed CSV to Cloud (AWS)
+╰───┴──────────────────────────────────────────────
 """
 
 main_menu_s1 = """
@@ -90,7 +94,11 @@ main_menu_s1 = """
 │ 3   Extract Transform and Load to CSV file
 ├───┼────────────────────────────────────────
 │ 4   Extract Transform and Load to Data Base
-╰───┴─────────────────────────────────────────────
+├───┼──────────────────────────────────────────
+│ 5   Upload raw CSV file to Cloud (AWS) s3 Bucket
+├───┼─────────────────────────────────────────────
+│ 6   Upload PII fields hashed CSV to Cloud (AWS)
+╰───┴──────────────────────────────────────────────
 """
 
 main_menu_s10 = """
@@ -102,7 +110,11 @@ main_menu_s10 = """
 │ 3   Extract Transform and Load to CSV file
 ├───┼────────────────────────────────────────
 │ 4   Extract Transform and Load to Data Base
-╰───┴─────────────────────────────────────────────
+├───┼──────────────────────────────────────────
+│ 5   Upload raw CSV file to Cloud (AWS) s3 Bucket
+├───┼─────────────────────────────────────────────
+│ 6   Upload PII fields hashed CSV to Cloud (AWS)
+╰───┴──────────────────────────────────────────────
 """
 
 
@@ -115,7 +127,11 @@ main_menu_s2 = """
 │ 3   Extract Transform and Load to CSV file
 ├───┼────────────────────────────────────────
 │ 4   Extract Transform and Load to Data Base
-╰───┴─────────────────────────────────────────────
+├───┼──────────────────────────────────────────
+│ 5   Upload raw CSV file to Cloud (AWS) s3 Bucket
+├───┼─────────────────────────────────────────────
+│ 6   Upload PII fields hashed CSV to Cloud (AWS)
+╰───┴──────────────────────────────────────────────
 """
 
 main_menu_s3 = """
@@ -127,7 +143,11 @@ main_menu_s3 = """
 │ 3   ██████████████████████████████████████
 ├───┼────────────────────────────────────────
 │ 4   Extract Transform and Load to Data Base
-╰───┴─────────────────────────────────────────────
+├───┼──────────────────────────────────────────
+│ 5   Upload raw CSV file to Cloud (AWS) s3 Bucket
+├───┼─────────────────────────────────────────────
+│ 6   Upload PII fields hashed CSV to Cloud (AWS)
+╰───┴──────────────────────────────────────────────
 """
 
 main_menu_s4 = """
@@ -139,9 +159,44 @@ main_menu_s4 = """
 │ 3   Extract Transform and Load to CSV file
 ├───┼────────────────────────────────────────
 │ 4   ███████████████████████████████████████
-╰───┴─────────────────────────────────────────────
+├───┼──────────────────────────────────────────
+│ 5   Upload raw CSV file to Cloud (AWS) s3 Bucket
+├───┼─────────────────────────────────────────────
+│ 6   Upload PII fields hashed CSV to Cloud (AWS)
+╰───┴──────────────────────────────────────────────
 """
 
+main_menu_s5 = """
+╭───┬──────────────────
+│ 1   Extract and Transform Print
+├───┼─────────────────────────────
+│ 2   Extract and Load to CSV file
+├───┼────────────────────────────────────
+│ 3   Extract Transform and Load to CSV file
+├───┼────────────────────────────────────────
+│ 4   Extract Transform and Load to Data Base
+├───┼──────────────────────────────────────────
+│ 5   ███████████████████████████████████████████
+├───┼─────────────────────────────────────────────
+│ 6   Upload PII fields hashed CSV to Cloud (AWS)
+╰───┴──────────────────────────────────────────────
+"""
+
+main_menu_s6 = """
+╭───┬──────────────────
+│ 1   Extract and Transform Print
+├───┼─────────────────────────────
+│ 2   Extract and Load to CSV file
+├───┼────────────────────────────────────
+│ 3   Extract Transform and Load to CSV file
+├───┼────────────────────────────────────────
+│ 4   Extract Transform and Load to Data Base
+├───┼──────────────────────────────────────────
+│ 5   Upload raw CSV file to Cloud (AWS) s3 Bucket
+├───┼─────────────────────────────────────────────
+│ 6   ████████████████████████████████████████████
+╰───┴──────────────────────────────────────────────
+"""
 
 
 warning_symb = """
@@ -163,6 +218,24 @@ warning_symb = """
   │ !! Invalid Input !! │
   ╰─────────────────────╯
 """
+
+
+coming_s = """
+╭──────────────────────────────────────────────╮
+│       ____ ___  __  __ ___ _   _  ____       │
+│      / ___/ _ \|  \/  |_ _| \ | |/ ___|      │
+│     | |  | | | | |\/| || ||  \| | |  _       │
+│     | |__| |_| | |  | || || |\  | |_| |      │
+│      \____\___/|_|_ |_|___|_| \_|\____|      │
+│           ____   ___   ___  _   _            │
+│          / ___| / _ \ / _ \| \ | |           │
+│          \___ \| | | | | | |  \| |           │
+│           ___) | |_| | |_| | |\  |           │
+│          |____/ \___/ \___/|_| \_|           │
+│                                              │
+╰──────────────────────────────────────────────╯
+"""
+
 
 
 return_main = """
@@ -189,49 +262,22 @@ def warning(center_vertically: bool = False, heigh:int | None = None) -> None:
     aligned = Align.center(warning_symb, vertical=align_v)
     console.print(aligned, style="bold red")
 
+def coming_soon(center_vertically: bool = False, heigh:int | None = None) -> None:
+    align_v = "middle" if center_vertically else "top"
+    aligned = Align.center(coming_s, vertical=align_v)
+    console.print(aligned, style="bold yellow")
+    
 # return main menu
 def r_main(center_vertically: bool = False, heigh:int | None = None) -> None:
     align_v = "middle" if center_vertically else "top"
     aligned = Align.center(return_main, vertical=align_v)
     console.print(aligned, style="bold green")
 
-
-# Print main menu
-def main_m(center_vertically: bool = False, heigh:int | None = None) -> None:
+# Main menu display
+def display_menu(art: str, style: str = "bold green", center_vertically: bool = False) -> None:
     align_v = "middle" if center_vertically else "top"
-    aligned = Align.center(main_menu, vertical=align_v)
-    console.print(aligned, style="bold green")
-
-# Print main selected 1
-def main_1(center_vertically: bool = False, heigh:int | None = None) -> None:
-    align_v = "middle" if center_vertically else "top"
-    aligned = Align.center(main_menu_s1, vertical=align_v)
-    console.print(aligned, style="bold green")
-
-# Print main selected 10
-def main_10(center_vertically: bool = False, heigh:int | None = None) -> None:
-    align_v = "middle" if center_vertically else "top"
-    aligned = Align.center(main_menu_s10, vertical=align_v)
-    console.print(aligned, style="bold cyan")
-
-# Print main selected 2
-def main_2(center_vertically: bool = False, heigh:int | None = None) -> None:
-    align_v = "middle" if center_vertically else "top"
-    aligned = Align.center(main_menu_s2, vertical=align_v)
-    console.print(aligned, style="bold green")
-
-# Print main selected 3
-def main_3(center_vertically: bool = False, heigh:int | None = None) -> None:
-    align_v = "middle" if center_vertically else "top"
-    aligned = Align.center(main_menu_s3, vertical=align_v)
-    console.print(aligned, style="bold green")
-
-# Print main selected 4
-def main_3(center_vertically: bool = False, heigh:int | None = None) -> None:
-    align_v = "middle" if center_vertically else "top"
-    aligned = Align.center(main_menu_s4, vertical=align_v)
-    console.print(aligned, style="bold green")
-
+    aligned = Align.center(art, vertical=align_v)
+    console.print(aligned, style=style)
 
 # Print header aligned center
 def header(center_vertically: bool = False, height:int | None = None) -> None:

@@ -23,12 +23,11 @@ def extract_transform_to_terminal(limit=None):
 
     # Transform stage
     transform_results = t.transform_all(extracted_data)
-    transformed_data = transform_results["data"]
+    transformed_data = transform_results["data"][:limit]
     t_stats = transform_results["stats"]
 
     console.print(
         Panel(
-            f"ETL Pipeline: Running...\n\n"
             f"Source          : [bold]{e_stats['source_file']}[/bold]\n"
             f"Total rows      : [green]{e_stats['total_rows']}[/green]\n"
             f"Malformed rows  : [red]{e_stats['malformed_rows']}[/red]\n"
@@ -48,7 +47,6 @@ def extract_transform_to_terminal(limit=None):
         }
         formatted = f"{i}.{safe_line}"
         elines.append(formatted)
-
     print("\n\n")
     extract_table = "\n".join(elines)
 
@@ -57,13 +55,11 @@ def extract_transform_to_terminal(limit=None):
     console.print(
             Panel(
         f"{extract_table}{info}",
+#        f"{formatted}{info}",
         title="Extract Sample",
         border_style="yellow"
         )
         )
-
-    if limit is not None:
-        transformed_data = transformed_data[:limit]
 
     # Field Names (CSV Headers)
     header = f"{'No.':<4}{'Drink':<11}{'Price':<7}{'Branch':<10}{'Payment':<9}{'Bank':<5}{'Date/Time':<10}{'TxID':<6}{'CustHash'}"
@@ -123,31 +119,29 @@ def main():
          ui.unix_banner_loop2()
 
     while True:
-        # Place holder for cli-gui
         u.clr_s()
         ui.header()
-        ui.main_m()
+        ui.display_menu(ui.main_menu)
         ui.exit_app()
         choice = input("Please select: ")
 
-        # Extract Transform Print to Terminal 
+        # [ 1 ] Extract Transform Print to Terminal
         if choice == "1":
             u.clr_s()
             ui.header()
-            ui.main_1()
+            ui.display_menu(ui.main_menu_s1)
             u.wait(2)
             u.clr_s()
             ui.header()
             extract_transform_to_terminal()
-            ui.r_main() # Press Enter For return main menu"
-            input()
+            input("\n Press Enter For return main menu")
             continue
 
-        # Extract Transform Print to Terminal (only first 10 row)
+        # [ 10 ] Extract Transform Print to Terminal (only first 10 row)
         if choice == "10":
             u.clr_s()
             ui.header()
-            ui.main_10()
+            ui.display_menu(ui.main_menu_s10)
             u.wait(2)
             u.clr_s()
             ui.header()
@@ -156,58 +150,91 @@ def main():
             input()
             continue
 
-        # Extract Transform Load CSV
+        # [ 2 ] Extract Transform Load CSV
         elif choice == "2":
             u.clr_s()
             ui.header()
-            ui.main_2()
+            ui.display_menu(ui.main_menu_s2)
             u.wait(2)
             u.clr_s()
             ui.header()
             extract_transform_to_terminal(3)
             el_to_csv()
-            ui.r_main() # Press Enter For return main menu"
-            input()
+            input("\n Press Enter For return main menu")
             continue
 
-        # Extract Transform Load CSV
+        # [ 3 ] Extract Transform Load CSV
         elif choice == "3":
             u.clr_s()
             ui.header()
-            ui.main_3()
+            ui.display_menu(ui.main_menu_s3)
             u.wait(2)
             u.clr_s()
             ui.header()
             extract_transform_to_terminal(3)
             etl_to_csv()
-            ui.r_main() # Press Enter For return main menu"
-            input()
+            input("\n Press Enter For return main menu")
             continue
 
-        # Extract Transform Load to Data Base
+        # [ 4 ] Extract Transform Load to Data Base
         elif choice == "4":
             """
             Place holder for load database
             """
             u.clr_s()
             ui.header()
-            ui.main_3()
+            ui.display_menu(ui.main_menu_s4)
             u.wait(2)
             u.clr_s()
             ui.header()
-            # Add Load function
+            # Add Load database function
             extract_transform_to_terminal(3)
- 
+            ui.r_main() # Press Enter For return main menu"
+            input()
+            continue
+
+        # [ 5 ] Extract Transform Load to Data Base
+        elif choice == "5":
+            """
+            Place holder for load database
+            """
+            u.clr_s()
+            ui.header()
+            ui.display_menu(ui.main_menu_s5)
+            u.wait(2)
+            u.clr_s()
+            ui.header()
+            # Add AWS send raw function
+#            extract_transform_to_terminal(3)
+            ui.display_menu(ui.coming_s)
+            ui.r_main() # Press Enter For return main menu"
+            input()
+            continue
+
+        # [ 6 ] Extract Transform Load to Data Base
+        elif choice == "6":
+            """
+            Place holder for load database
+            """
+            u.clr_s()
+            ui.header()
+            ui.display_menu(ui.main_menu_s6)
+            u.wait(2)
+            u.clr_s()
+            ui.header()
+            # Add AWS EL then send function
+#            extract_transform_to_terminal(3)
+            ui.display_menu(ui.coming_s)
             ui.r_main() # Press Enter For return main menu"
             input()
             continue
 
 
 
+
         elif choice in ["0", "q"]:
             u.clr_s()
             ui.banner()
-#            print("\n\n\n\nThank you for using L&S products!\n\n\n\n")
             exit()
 
         # Documentation page in main menu
@@ -216,7 +243,9 @@ def main():
             if sys.platform.startswith("win"):
                 ui.header()
                 ui.warning()
+                print("Please input [0-3]")
                 u.wait(3)
+                continue
             else:
                 os.system("less documentation.txt")
 
@@ -224,6 +253,7 @@ def main():
             u.clr_s()
             ui.header()
             ui.warning()
+            print("Please input [0-3]")
             u.wait(3)
             continue
 
