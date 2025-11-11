@@ -28,7 +28,6 @@ def hash_pii_fields(customer_name):
     """
     return hashlib.sha256(customer_name.strip().encode()).hexdigest()
 
-
 def drop_card(card_number):
     """
     Keep the first 4 digits of the card number to identify the bank.
