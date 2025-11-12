@@ -1,0 +1,61 @@
+version: "3.9"
+
+services:
+  # ==========================
+  # Application Service (CLI app)
+  # ==========================
+  obc_app:
+    build: .                      # build from the Dockerfile in the current directory
+    container_name: obc_app
+    stdin_open: true              # keep STDIN open for interactive CLI usage
+    tty: true                     # allocate a pseudo-TTY (so CLI works like normal terminal)
+    volumes:
+      - .:/app                    # mount current folder into /app inside the container
+      - ./sql:/sql                # Postgres Tables Volume
+      - ~/.aws:/root/.aws:ro      # reaches aws credentials (future proof)
+    environment:
+      # Default Postgres settings (can be overridden by args.txt or .env)
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432         # Default port 5432
+      POSTGRES_DB: obc_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    depends_on:
+      - postgres                  # ensures postgres service starts before app
+    command: python3 source/app.py
+
+  # ==========================
+  # Postgres Database Service
+  # ==========================
+  postgres:
+    image: postgres:15            # use official Postgres version 15 image
+    container_name: obc_postgres
+    environment:
+      POSTGRES_DB: obc_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "1001:5432"               # expose DB to local machine for debugging
+    volumes:
+      - pgdata:/var/lib/postgresql/data   # persist database data
+      - ./sql:/sql
+      - ./sql:/docker-entrypoint-initdb.d
+
+  # ==========================
+  # Adminer (Database GUI Tool)
+  # ==========================
+  adminer:
+    image: adminer:latest         # Browser based lightweight DB management UI
+    container_name: obc_adminer
+    restart: always
+    ports:
+      - "8181:8080"               # open Adminer at http://localhost:8181
+    depends_on:
+      - postgres                  # needs Postgres to be up first
+
+# ==========================
+# Volumes (persistent storage)
+# ==========================
+volumes:
+  pgdata:                         # named volume for database persistence
+
