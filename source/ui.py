@@ -80,9 +80,9 @@ main_menu = """
 │ 4   Extract Transform and Load to Data Base
 ├───┼──────────────────────────────────────────
 │ 5   Upload raw CSV file to Cloud (AWS) s3 Bucket
-├───┼─────────────────────────────────────────────
+├───┼───────────────────────────────────────────────
 │ 6   Upload PII fields hashed CSV to Cloud (AWS)
-╰───┴──────────────────────────────────────────────
+╰───┴─────────────────────────────────────────────────
 """
 
 main_menu_s1 = """
@@ -96,14 +96,14 @@ main_menu_s1 = """
 │ 4   Extract Transform and Load to Data Base
 ├───┼──────────────────────────────────────────
 │ 5   Upload raw CSV file to Cloud (AWS) s3 Bucket
-├───┼─────────────────────────────────────────────
+├───┼───────────────────────────────────────────────
 │ 6   Upload PII fields hashed CSV to Cloud (AWS)
-╰───┴──────────────────────────────────────────────
+╰───┴─────────────────────────────────────────────────
 """
 
 main_menu_s10 = """
 ╭───┬──────────────────
-│ 1   █▓▓▒░░FIRST░░10░░ROWS░▒▓▓██
+│ 1   █▓▓▒░FIRST >> 10 << ROWS░▒▓▓█
 ├───┼─────────────────────────────
 │ 2   Extract and Load to CSV file
 ├───┼────────────────────────────────────
@@ -112,9 +112,9 @@ main_menu_s10 = """
 │ 4   Extract Transform and Load to Data Base
 ├───┼──────────────────────────────────────────
 │ 5   Upload raw CSV file to Cloud (AWS) s3 Bucket
-├───┼─────────────────────────────────────────────
+├───┼───────────────────────────────────────────────
 │ 6   Upload PII fields hashed CSV to Cloud (AWS)
-╰───┴──────────────────────────────────────────────
+╰───┴─────────────────────────────────────────────────
 """
 
 
@@ -129,9 +129,9 @@ main_menu_s2 = """
 │ 4   Extract Transform and Load to Data Base
 ├───┼──────────────────────────────────────────
 │ 5   Upload raw CSV file to Cloud (AWS) s3 Bucket
-├───┼─────────────────────────────────────────────
+├───┼───────────────────────────────────────────────
 │ 6   Upload PII fields hashed CSV to Cloud (AWS)
-╰───┴──────────────────────────────────────────────
+╰───┴────────────────────────────────────────────────────
 """
 
 main_menu_s3 = """
@@ -145,9 +145,9 @@ main_menu_s3 = """
 │ 4   Extract Transform and Load to Data Base
 ├───┼──────────────────────────────────────────
 │ 5   Upload raw CSV file to Cloud (AWS) s3 Bucket
-├───┼─────────────────────────────────────────────
+├───┼───────────────────────────────────────────────
 │ 6   Upload PII fields hashed CSV to Cloud (AWS)
-╰───┴──────────────────────────────────────────────
+╰───┴─────────────────────────────────────────────────
 """
 
 main_menu_s4 = """
@@ -161,9 +161,9 @@ main_menu_s4 = """
 │ 4   ███████████████████████████████████████
 ├───┼──────────────────────────────────────────
 │ 5   Upload raw CSV file to Cloud (AWS) s3 Bucket
-├───┼─────────────────────────────────────────────
+├───┼───────────────────────────────────────────────
 │ 6   Upload PII fields hashed CSV to Cloud (AWS)
-╰───┴──────────────────────────────────────────────
+╰───┴─────────────────────────────────────────────────
 """
 
 main_menu_s5 = """
@@ -177,9 +177,9 @@ main_menu_s5 = """
 │ 4   Extract Transform and Load to Data Base
 ├───┼──────────────────────────────────────────
 │ 5   ███████████████████████████████████████████
-├───┼─────────────────────────────────────────────
+├───┼───────────────────────────────────────────────
 │ 6   Upload PII fields hashed CSV to Cloud (AWS)
-╰───┴──────────────────────────────────────────────
+╰───┴─────────────────────────────────────────────────
 """
 
 main_menu_s6 = """
@@ -193,9 +193,9 @@ main_menu_s6 = """
 │ 4   Extract Transform and Load to Data Base
 ├───┼──────────────────────────────────────────
 │ 5   Upload raw CSV file to Cloud (AWS) s3 Bucket
-├───┼─────────────────────────────────────────────
+├───┼───────────────────────────────────────────────
 │ 6   ████████████████████████████████████████████
-╰───┴──────────────────────────────────────────────
+╰───┴─────────────────────────────────────────────────
 """
 
 
@@ -284,6 +284,13 @@ def header(center_vertically: bool = False, height:int | None = None) -> None:
     align_v = "middle" if center_vertically else "top"
     aligned = Align.center(header_art, vertical=align_v)
     console.print(aligned,style="bold cyan")
+
+# Panel message
+def print_panel(msg: str, style="green", title="Info", center_vertically=False):
+    align_v = "middle" if center_vertically else "top"
+    panel = Panel(msg, border_style=style, title=title)
+    console.print(Align.center(panel, vertical=align_v))
+
 
 # Print plain banner aligned center (colour cyan)
 def banner():

@@ -1,32 +1,242 @@
-# Place holder for documentation
+Obscured-by-Clouds (OBC) - Documentation v0.91
+==============================================
 
-            RIP
-        September 7, 1885
- Here lies documentation.txt
+Thank you for using Logic and Space products!
 
-
-
-
-The standard Lorem Ipsum passage, used since the 1500s
-
-"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-Section 1.10.32 of "de Finibus Bonorum et Malorum", written by Cicero in 45 BC
-
-"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"
-1914 translation by H. Rackham
-
-"But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain that produces no resultant pleasure?"
-Section 1.10.33 of "de Finibus Bonorum et Malorum", written by Cicero in 45 BC
-
-"At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat."
-1914 translation by H. Rackham
-
-"On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble that are bound to ensue; and equal blame belongs to those who fail in their duty through weakness of will, which is the same as saying through shrinking from toil and pain. These cases are perfectly simple and easy to distinguish. In a free hour, when our power of choice is untrammelled and when nothing prevents our being able to do what we like best, every pleasure is to be welcomed and every pain avoided. But in certain circumstances and owing to the claims of duty or the obligations of business it will frequently occur that pleasures have to be repudiated and annoyances accepted. The wise man therefore always holds in these matters to this principle of selection: he rejects pleasures to secure other greater pleasures, or else he endures pains to avoid worse pains."
+For more information about Logic and Space you can visit: https://logicand.space
 
 
+Project Overview
+----------------
+OBC is a modular ETL pipeline that extracts, transforms, and loads transaction data locally, with anonymisation, validation, logging, and terminal UI support.
+The project is designed to prepare data for future cloud integration while maintaining privacy, reproducibility, and modularity.
 
------------------------ END ------------------------
 
-------------------
-Press q for start app you can reach documentation any time in main menu with pressing:'D'
-------------------
+🔧 Interactive Terminal Preview
+--------------------------------
+- Options:
+
+   1. Extract and Transform Print
+   10. Preview first 10 rows (both extracted & transformed)
+   2. Extract and Load to CSV file
+   3. Extract Transform and Load to CSV file
+   4. Extract Transform and Load to Data Base
+   5. Upload raw CSV file to Cloud (AWS) s3 Bucket (coming soon)
+   6. Upload PII fields hashed CSV to Cloud (AWS) (coming soon)
+   D for Documentation you can reach this documentation page inside the obc_app.
+
+- Terminal output uses **Rich** for aligned tables and clear readability.
+
+
+🚀 Quick Start / How to Use
+---------------------------
+1. **Clone the repository**:
+   $ git clone https://github.com/Eng-ADAL/Obscured-by-Clouds
+   $ cd Obscured-by-Clouds
+
+2. **Run setup script** to create Python virtual environment and install dependencies:
+   - Linux/macOS:
+     $ ./setup.sh
+   - Windows PowerShell:
+     > .\setup.ps1
+
+3. **Prepare your raw data**:
+   - Place your raw transaction file in:
+     `data_raw/raw_data.txt`
+   - Sample raw data:
+     
+     Customer: John Doe
+     TransactionID: TX123456
+     Item: Coffee
+     Price: £12.99
+     Date: 13/11/2025
+
+   - This file will be read by the ETL pipeline for extraction.
+
+4. **Run Dockerised app**:
+   $ docker compose run --rm obc_app
+
+5. **Preview data in the terminal (optional)**:
+   - Select option `10` to display first 10 rows of extracted/transformed data.
+   - The app will show:
+     - Extracted raw data (hashed/anonymised)
+     - Transformed 3NF structure (Transactions, Basket Items)
+     - Abbreviated Transaction IDs & Customer Hashes
+     - Date shortened (YYYY-MM-DD)
+
+
+📂 File Structure
+-----------------
+Obscured-by-Clouds/
+├─ data_raw/             # Raw data input
+│  └─ raw_data.txt
+├── data_ext             # Extracted data stored 
+│   ├── el_csv_data.csv
+│   └── etl_csv_data.csv
+├─ source/
+│  ├─ app.py             # Main entry point
+│  ├─ extract.py         # Extract stage
+│  ├─ transform.py       # Transform stage
+│  ├─ load.py            # Load stage
+│  ├─ ui.py              # Interactive menu & preview
+│  └─ utils.py           # Helper functions
+└── sql
+│   └── create_tables.sql  # Sql tables
+├─ setup.sh              # Linux/macOS environment setup
+├─ setup.ps1             # Windows PowerShell setup
+├─ requirements.txt      # Python dependencies
+└─ README.md
+
+
+📊 ETL Process Overview
+-----------------------
+1. Extract
+   - Reads `raw_data.txt`.
+   - Hashes PII fields (Customer names).
+   - Cleans missing/invalid values.
+
+2. Transform
+   - Converts data into 3NF structure:
+     - Transactions
+     - Basket Items
+   - Abbreviates IDs & shortens dates.
+   - Logs invalid rows for review.
+
+3. Load
+   - Writes processed data to:
+     - `local_database/`
+   - Ensures data integrity & reproducibility.
+
+
+📝 Sample Extracted Data
+------------------------
+
+| CustomerHash | TransactionID | Item   | Price   | Date       |
+| ------------ | ------------- | ------ | ------- | ---------- |
+| a1b2c3d4e5   | TX123***      | Coffee |    3.99 | 2025-11-13 |
+| f6g7h8i9j0   | TX124***      | Tea    |    1.50 | 2025-11-13 |
+
+
+
+💡 Notes
+--------
+- Always ensure `raw_data.txt` exists before running the ETL.
+- Option `10` in the app is useful for quick inspection of first N rows.
+- Logs are written locally for debugging and reproducibility.
+- `setup.sh` and `setup.ps1` automate environment setup; check Python 3.10+ is installed.
+
+
+Modules
+-------
+1. extract.py
+   - Purpose: Extract raw data from `data_raw/raw_data.txt` and anonymise PII.
+   - Key functions:
+     - extract_txt(filepath: str) -> list[dict]: Reads raw text, parses into structured dicts.
+     - Anonymisation: Customer names, emails, etc., are hashed using salted hash.
+   - Logs skipped or malformed rows for debugging.
+
+2. transform.py
+   - Purpose: Validate and transform extracted data into 3NF-ready structure.
+   - Key functions:
+     - decimal_price(row: dict) -> Decimal: Converts price to decimal, skips invalid entries.
+     - transform_all(data: list[dict]) -> dict: Produces transformed transactions and basket items.
+   - Features:
+     - Shortened Transaction IDs and Customer Hashes for terminal display.
+     - Skipped-row logging for invalid prices or missing fields.
+
+3. load.py
+   - Purpose: Load transformed data into local database.
+   - Key functions:
+     - load_transactions(transactions: list[dict]): Inserts transactions with GUIDs.
+     - load_basket_items(basket_items: list[dict]): Inserts basket items with GUIDs linked to transactions.
+   - Integrates with `dal.py` (Data Access Layer) for DB abstraction.
+
+4. create_table.sql
+   - Purpose: Provides abstraction layer for database access.
+   - Functions:
+     - insert(table: str, data: list[dict])
+     - query(table: str, filters: dict = None)
+   - Ensures GUID consistency and safe insertion.
+
+5. ui.py
+   - Purpose: Interactive terminal interface for ETL stats and filtered views.
+   - Key functions:
+     - extract_transform_to_terminal(limit=None, transform=True): Shows extraction and transformation stats.
+     - Table displays via Rich library for pretty printing.
+     - Supports filtering, limited preview, and statistics summary.
+
+6. app.py (entry point)
+   - Purpose: Orchestrates full ETL process.
+   - Usage:
+     - Runs extraction, transformation, loading, and optionally triggers UI stats.
+     - CLI-friendly: can specify record limit for testing.
+
+
+Data Flow
+---------
+raw_data.txt -> extract.py (anonymise) -> transform.py (validate & 3NF-ready) -> load.py (insert GUIDs) -> local_database
+
+Logging
+-------
+- Skipped rows due to invalid prices or missing data.
+- Transformation warnings for anomalies.
+- Logs stored in `logs/` with timestamped filenames.
+
+Design Principles
+-----------------
+- Privacy-first: Immediate PII hashing.
+- Transparency: Local logging and stats.
+- Modularity: Independent ETL components.
+- Reproducibility: Deterministic transformations.
+- Scalability-ready: Components can migrate to cloud orchestration.
+
+Roadmap
+-------
+- [x] Local ETL pipeline with terminal UI
+- [x] GUID-based 3NF-ready transformations
+- [x] Skipped-row logging
+- [ ] Unit testing for each module
+- [ ] Cloud ETL orchestration
+- [ ] CLI automation
+- [ ] Extended documentation with diagrams
+
+
+
+💻 Quick Cheat Sheet
+-------------------
+# Activate Python environment (Linux/macOS)
+$ source obc_venv/bin/activate
+
+# Activate Python environment (Windows PowerShell)
+> .\obc_venv\Scripts\activate
+
+# Run CLI entry point
+$ python3 source/app.py
+
+# Preview first 10 rows of extracted and transformed data
+# Option 10 in the interactive menu
+
+# Check Python dependencies (if you modify code or add packages)
+$ pip install -r requirements.txt
+
+# Run setup script again (Linux/macOS)
+$ ./setup.sh
+
+# Run setup script again (Windows PowerShell)
+> .\setup.ps1
+
+# Run dockerised app
+$ docker compose run --rm obc_app
+
+# Sample path for raw data file
+data_raw/raw_data.txt
+
+# Extracted and loaded csv data file
+data_raw/raw_data.txt
+
+
+📞 Contact & Support
+-----------------
+For questions or contributions:
+GitHub: https://github.com/Eng-ADAL/Obscured-by-Clouds
+Website: https://logicand.space
