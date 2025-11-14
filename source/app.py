@@ -269,13 +269,22 @@ def main():
         # Documentation page in main menu
         elif choice in ["d", "D"]:
             u.clr_s()
-            if sys.platform.startswith("win"):
-                ui.header()
-                ui.warning()
-                u.wait(3)
-                continue
-            else:
-                os.system("less documentation.txt")
+            def show_docs():
+                doc_cmd = "less documentation.txt"
+
+                if os.environ.get("TMUX"):
+                    popup = f'tmux display-popup -E -w 73 -h 90% "bash -c \'clear; {doc_cmd}\'"'
+                    os.system(popup)
+                else:
+                    os.system(f"clear && {doc_cmd}")
+
+#            if sys.platform.startswith("win"):
+#                ui.header()
+#                ui.warning()
+#                u.wait(3)
+#                continue
+#            else:
+#                os.system("less documentation.txt")
 
         else:
             u.clr_s()
