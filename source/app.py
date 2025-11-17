@@ -138,8 +138,8 @@ def main():
         ui.header()
         ui.display_menu(ui.main_menu)
         ui.exit_app()
-        choice = input("Please select: ")
-
+        selected = input("Please select: ")
+        choice = selected.strip().lower()
         # [ 1 ] Extract Transform Print to Terminal
         if choice == "1":
             u.clr_s()
@@ -267,17 +267,17 @@ def main():
             exit()
 
         # Documentation page in main menu
-        elif choice in ["d", "D"]:
+        elif choice == "d":
             u.clr_s()
-            def show_docs():
-                doc_cmd = "less documentation.txt"
-
-                if os.environ.get("TMUX"):
-                    popup = f'tmux display-popup -E -w 73 -h 90% "bash -c \'clear; {doc_cmd}\'"'
-                    os.system(popup)
-                else:
-                    os.system(f"clear && {doc_cmd}")
-
+#            def show_docs():
+#                doc_cmd = "less documentation.txt"
+#
+#                if os.environ.get("TMUX"):
+#                    popup = f'tmux display-popup -E -w 73 -h 90% "bash -c \'clear; {doc_cmd}\'"'
+#                    os.system(popup)
+#                else:
+ #                   os.system(f"clear && {doc_cmd}")
+            u.show_docs()
 #            if sys.platform.startswith("win"):
 #                ui.header()
 #                ui.warning()

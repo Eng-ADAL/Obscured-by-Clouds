@@ -7,6 +7,8 @@ import termios
 import tty
 import select
 
+import ui
+
 from rich.console import Console
 from rich.panel   import Panel
 
@@ -35,8 +37,15 @@ def get_keypress():
         termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
     return ch
 
-# date time
-# logging
 
+# Show documentation floating window else show in less
+def show_docs():
+    doc_cmd = "less documentation.txt"
+    if sys.platform.startswith("win"):
+        ui.header()
+        ui.warning()
+        wait(2.5)
+    else:
+        os.system(f"clear && {doc_cmd}")
 
 
