@@ -1,3 +1,6 @@
+# UI user interface for CLI entry point
+
+
 import os
 import sys
 import time

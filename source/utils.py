@@ -1,3 +1,5 @@
+# Utils py utility codes stored here:w
+
 import os
 import datetime
 import time
@@ -19,33 +21,47 @@ def wait(s):
     time.sleep(s)
 
 def current_t():
-    date
+    return datetime.utcnow().isoformat()
 
 # Flush stdin (input)
 def flush_stdin():
-    termios.tcflush(sys.stdin, termios.TCIFLUSH)
+    if sys.platform.startswith("win"):
+        return
+    try:
+        termios.tcflush(sys.stdin, termios.TCIFLUSH)
+    except Exception:
+        pass
 
 # Arcade mode key press and no need enter go!
 def get_keypress():
-    """Capture a single keypress (no Enter, no echo)."""
-    fd = sys.stdin.fileno()
-    old_settings = termios.tcgetattr(fd)
+     if sys.platform.startswith("win"):
+        return
     try:
-        tty.setraw(fd)
-        ch = sys.stdin.read(1).lower()
-    finally:
-        termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
+        """Capture a single keypress (no Enter, no echo)."""
+        fd = sys.stdin.fileno()
+        old_settings = termios.tcgetattr(fd)
+        try:
+            tty.setraw(fd)
+            ch = sys.stdin.read(1).lower()
+        finally:
+            termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
     return ch
 
 
 # Show documentation floating window else show in less
 def show_docs():
-    doc_cmd = "less documentation.txt"
-    if sys.platform.startswith("win"):
-        ui.header()
-        ui.warning()
-        wait(2.5)
-    else:
-        os.system(f"clear && {doc_cmd}")
+    doc_path = "documentation.txt"
+    if not os.path.exists(doc_path):
+        print("Documentation not found")
+        return
 
+    try:
+        if sys.platform.startswith("win"):
+            with open(doc_path, encoding="utf-8") as f:
+                print(f.read())
+        else:
+            # safer subprocess call
+            subprocess.run(["less", doc_path])
+    except Exception as e:
+        print(f"Error showing documentation: {e}")
 

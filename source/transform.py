@@ -55,7 +55,7 @@ def decimal_price(price):
     remove currency sign (£) and transform it integer
     """
     try:
-        p_price = re.sub(r'[£$€?]', '', price)
+        p_price = re.sub(r'[^\d.-]', '', price or '') # strip everything except dot (.) and digits
         dec_price = Decimal(p_price)
         if dec_price < 0:
             raise ValueError
