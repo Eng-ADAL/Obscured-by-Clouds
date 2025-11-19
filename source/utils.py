@@ -1,4 +1,5 @@
-# Utils py utility codes stored here:w
+# OBC utilities utils.py
+# utility codes stored here
 
 import os
 import datetime
@@ -34,10 +35,10 @@ def flush_stdin():
 
 # Arcade mode key press and no need enter go!
 def get_keypress():
+    """Capture a single keypress (no Enter, no echo)."""
      if sys.platform.startswith("win"):
         return
     try:
-        """Capture a single keypress (no Enter, no echo)."""
         fd = sys.stdin.fileno()
         old_settings = termios.tcgetattr(fd)
         try:
@@ -54,7 +55,6 @@ def show_docs():
     if not os.path.exists(doc_path):
         print("Documentation not found")
         return
-
     try:
         if sys.platform.startswith("win"):
             with open(doc_path, encoding="utf-8") as f:
