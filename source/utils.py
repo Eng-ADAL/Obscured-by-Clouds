@@ -36,9 +36,9 @@ def flush_stdin():
 # Arcade mode key press and no need enter go!
 def get_keypress():
     """Capture a single keypress (no Enter, no echo)."""
-     if sys.platform.startswith("win"):
-        return
-    try:
+    if sys.platform.startswith("win"):
+        print("For best ap performance please use docker")
+    else:
         fd = sys.stdin.fileno()
         old_settings = termios.tcgetattr(fd)
         try:
@@ -46,7 +46,7 @@ def get_keypress():
             ch = sys.stdin.read(1).lower()
         finally:
             termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
-    return ch
+        return ch
 
 
 # Show documentation floating window else show in less
