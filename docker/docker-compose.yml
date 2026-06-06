@@ -1,17 +1,17 @@
-version: "3.9"
-
 services:
   # ==========================
   # Application Service (CLI app)
   # ==========================
   obc_app:
-    build: .                      # build from the Dockerfile in the current directory
+    build:                        # build from the Dockerfile in the current directory
+      context: ..
+      dockerfile: docker/Dockerfile
     container_name: obc_app
     stdin_open: true              # keep STDIN open for interactive CLI usage
     tty: true                     # allocate a pseudo-TTY (so CLI works like normal terminal)
     volumes:
-      - .:/app                    # mount current folder into /app inside the container
-      - ./sql:/sql                # Postgres Tables Volume
+      - ..:/app                    # mount current folder into /app inside the container
+      - ../sql:/sql                # Postgres Tables Volume
       - ~/.aws:/root/.aws:ro      # reaches aws credentials (future proof)
     environment:
       # Default Postgres settings (can be overridden by args.txt or .env)
@@ -38,8 +38,8 @@ services:
       - "1001:5432"               # expose DB to local machine for debugging
     volumes:
       - pgdata:/var/lib/postgresql/data   # persist database data
-      - ./sql:/sql
-      - ./sql:/docker-entrypoint-initdb.d
+      - ../sql:/sql
+      - ../sql:/docker-entrypoint-initdb.d
 
   # ==========================
   # Adminer (Database GUI Tool)
@@ -47,6 +47,7 @@ services:
   adminer:
     image: adminer:latest         # Browser based lightweight DB management UI
     container_name: obc_adminer
+    command: ["php", "-S", "0.0.0.0:8080", "-t", "/var/www/html"]   # Force IPv4
     restart: always
     ports:
       - "8181:8080"               # open Adminer at http://localhost:8181

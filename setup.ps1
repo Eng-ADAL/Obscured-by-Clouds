@@ -1,5 +1,4 @@
 # setup.ps1
-# Developer-friendly one-click setup for Windows
 $ErrorActionPreference = "Stop"
 
 Write-Host "🚀 Setting up Obscured-By-Clouds environment..." -ForegroundColor Cyan
@@ -8,14 +7,29 @@ Write-Host ""
 # =========================
 # Start Postgres & Adminer
 # =========================
-Write-Host "Starting Postgres and Adminer containers..."
-docker compose up -d postgres adminer
+Write-Host"Starting Postgres and Adminer containers..."
+Write-Host
+Write-Host"Pulling postgres container"
+Write-Host
+docker pull postgres:15
+Write-Host
+Write-Host"Pulling Adminer container"
+Write-Host
+docker pull adminer
+Write-Host
+Write-Host"Composing postgres and Adminer containers"
+Write-Host
+docker compose -f docker/docker-compose.yml up -d
+Write-Host
+Write-Host"Running postgres and Adminer containers"
+Write-Host
+docker compose -f docker/docker-compose.yml up -d postgres adminer
 
 # =========================
 # Build App Container
 # =========================
 Write-Host "Building app container..."
-docker compose build obc_app
+docker compose -f docker/docker-compose.yml build obc_app
 
 # =========================
 # Wait for Postgres readiness
@@ -54,6 +68,6 @@ if ($key.VirtualKeyCode -eq 27) {   # ESC key
 } else {
     Write-Host ""
     Write-Host "Launching CLI app..."
-    docker compose run --rm obc_app
+    docker compose -f docker/docker-compose.yml run --rm obc_app --rm → deletes container after run
 }
 

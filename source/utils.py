@@ -15,6 +15,8 @@ import ui
 from rich.console import Console
 from rich.panel   import Panel
 
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 def clr_s():
     os.system('cls' if os.name == 'nt' else 'clear')
 
@@ -51,7 +53,8 @@ def get_keypress():
 
 # Show documentation floating window else show in less
 def show_docs():
-    doc_path = "documentation.txt"
+    # doc_path is hardcoded
+    doc_path = "app/docs/documentation.txt"
     if not os.path.exists(doc_path):
         print("Documentation not found")
         return

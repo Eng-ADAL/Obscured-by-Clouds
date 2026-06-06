@@ -9,13 +9,28 @@ echo
 # Start Postgres & Adminer
 # =========================
 echo "Starting Postgres and Adminer containers..."
-docker compose up -d postgres adminer
+echo
+echo "Pulling postgres container"
+echo
+docker pull postgres:15
+echo
+echo "Pulling Adminer container"
+echo
+docker pull adminer
+echo
+echo "Composing postgres and Adminer containers"
+echo
+docker compose -f docker/docker-compose.yml up -d
+echo
+echo "Running postgres and Adminer containers"
+echo
+docker compose -f docker/docker-compose.yml up -d postgres adminer
 
 # =========================
 # Build App Container
 # =========================
 echo "Building app container..."
-docker compose build obc_app
+docker compose -f docker/docker-compose.yml build obc_app
 
 # =========================
 # Wait for Postgres readiness
@@ -43,7 +58,7 @@ echo
 echo "🎉 Setup completed!"
 echo
 echo "Run your CLI app with:"
-echo "    docker compose run --rm app"
+echo "    docker compose run --rm obc_app"
 echo
 echo "Access Adminer at:"
 echo "    http://localhost:8181 (user: postgres / password: postgres)"
@@ -59,10 +74,10 @@ echo
 if [[ $key == $'\x1b' ]]; then
     echo
     echo "Exiting setup. You can run the app later with:"
-    echo "    docker compose run --rm app"
+    echo "  docker compose -f docker/docker-compose.yml run --rm obc_app"
     exit 0
 else
     echo
     echo "Launching CLI app..."
-    docker compose run --rm obc_app
+    docker compose -f docker/docker-compose.yml run --rm obc_app # --rm → deletes container after run
 fi
